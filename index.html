@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>斩神2 小红书舆情内容分析报告</title>
+<style>
+  :root {
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f5f4f0;
+    --color-background-tertiary: #faf8f2;
+    --color-background-info: #E6F1FB;
+    --color-background-success: #E1F5EE;
+    --color-background-danger: #FCEBEB;
+    --color-background-warning: #FAEEDA;
+    --color-text-primary: #2C2C2A;
+    --color-text-secondary: #5F5E5A;
+    --color-text-tertiary: #888780;
+    --color-text-info: #185FA5;
+    --color-text-success: #0F6E56;
+    --color-text-danger: #A32D2D;
+    --color-text-warning: #854F0B;
+    --color-border-tertiary: rgba(0,0,0,0.08);
+    --color-border-secondary: rgba(0,0,0,0.15);
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--color-background-tertiary);
+    color: var(--color-text-primary);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px; }
+  .hero { margin-bottom: 40px; }
+  .hero h1 { font-size: 26px; font-weight: 500; margin: 0 0 8px 0; letter-spacing: -0.3px; }
+  .hero .sub { font-size: 14px; color: var(--color-text-secondary); }
+  h2 { font-size: 18px; font-weight: 500; margin: 0 0 16px 0; letter-spacing: -0.2px; }
+  h3 { font-size: 14px; font-weight: 500; margin: 0 0 12px 0; color: var(--color-text-secondary); }
+  section { margin-bottom: 48px; }
+  .card {
+    background: var(--color-background-primary);
+    border-radius: var(--border-radius-lg);
+    border: 0.5px solid var(--color-border-tertiary);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card-tight { overflow: hidden; }
+  .grid-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .metric {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 14px 16px;
+  }
+  .metric .label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .metric .num { font-size: 22px; font-weight: 500; }
+  .metric .sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 500;
+  }
+  .badge-pos { background: var(--color-background-success); color: var(--color-text-success); }
+  .badge-neu { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+  .badge-neg { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .chart-box { position: relative; width: 100%; height: 260px; }
+  .chart-box-tall { position: relative; width: 100%; height: 340px; }
+  .toc a { color: var(--color-text-info); text-decoration: none; margin-right: 16px; font-size: 13px; }
+  .toc a:hover { text-decoration: underline; }
+  p { margin: 0 0 8px 0; }
+  a { color: var(--color-text-info); }
+  .note-info {
+    padding: 12px 16px; background: var(--color-background-info);
+    border-radius: var(--border-radius-md); font-size: 12px;
+    color: var(--color-text-info); margin-bottom: 16px;
+    line-height: 1.7;
+  }
+  @media (max-width: 720px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>《斩神》系列 · 小红书舆情内容分析报告</h1>
+    <div class="sub">数据源: MediaCrawler(xhs 平台) · 采集时间 2026-07-01 · 搜索词「斩神2」「林七夜」 · 帖子 82 篇 / 评论 2731 条</div>
+    <div class="toc" style="margin-top:16px;">
+      <a href="#s1">1. 数据概览</a>
+      <a href="#s2">2. Top 内容</a>
+      <a href="#s3">3. 情感分布</a>
+      <a href="#s4">4. 负面槽点</a>
+      <a href="#s5">5. 延伸洞察</a>
+    </div>
+  </div>
+
+  <section id="s1">
+    <h2>1. 数据概览 · 目前抓取到的是什么</h2>
+    <p style="color:var(--color-text-secondary);margin-bottom:16px;">
+      本次通过 MediaCrawler 在小红书搜索「斩神2」「林七夜」两个关键词, 共采集到 82 篇相关帖子和 2731 条评论(含二级评论)。累计点赞超 65 万, 收藏超 12 万, 分享近 4 万, 是一部有强讨论度的国漫番剧。
+    </p>
+
+    <div class="grid-metrics">
+      <div class="metric"><div class="label">帖子总数</div><div class="num">82</div><div class="sub">斩神2 · 60 + 林七夜 · 22</div></div>
+      <div class="metric"><div class="label">评论总数</div><div class="num">2,731</div><div class="sub">一级 788 + 二级 1943</div></div>
+      <div class="metric"><div class="label">累计点赞</div><div class="num">650,902</div></div>
+      <div class="metric"><div class="label">累计收藏</div><div class="num">122,248</div></div>
+      <div class="metric"><div class="label">累计分享</div><div class="num">37,832</div></div>
+      <div class="metric"><div class="label">综合热度分</div><div class="num">829,511</div><div class="sub">点赞+收藏+评论+分享</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>关键词热度对比</h3>
+        <div class="chart-box"><canvas id="ch_kw" role="img" aria-label="关键词热度对比">kw</canvas></div>
+      </div>
+      <div class="card">
+        <h3>帖子类型分布</h3>
+        <div class="chart-box"><canvas id="ch_type" role="img" aria-label="帖子类型分布">type</canvas></div>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:10px;">
+          视频 62 篇 / 图文 20 篇。视频帖平均点赞 9,426, 显著高于图文的 3,322。番剧宣发以视频物料为主。
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>热度时间线 · 发布日期分布</h3>
+      <div class="chart-box"><canvas id="ch_date" role="img" aria-label="发布日期分布">date</canvas></div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:10px;">
+        热度爆发集中在 <b>2026-06-24 ~ 06-28 第二季开播前后一周</b>, 尤其 6/25 单日 25 篇达到峰值; 前后有若干长尾内容(剧粉复习帖、旧番熟客)。
+      </p>
+    </div>
+  </section>
+
+  <section id="s2">
+    <h2>2. Top 内容 · 点赞最高的帖子与评论</h2>
+
+    <div class="card">
+      <h3>Top 10 点赞帖子</h3>
+      <div class="card-tight"><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">1</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a40b3990000000017028519?xsec_token=AB4My6NRkItMRJZuY4tis-P5zrOMhhmWf_U9wR43eWQy4=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">“正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# #国漫[话题]# #国漫剪辑[话题]# #拽哥[话题]# #</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 c***） · 关键词 斩神2 · “正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# #国漫[话题]# #国漫剪辑[话题]# #拽哥[话题]# #沈青竹[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">60,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">2</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/69e22a67000000001a020172?xsec_token=ABOf3-nzxvP7RE0uIP9va93OmQUB7lcttc36agSPqTRfs=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">“大夏境内，神明禁行”#转场[话题]# #斩神[话题]# #林七夜[话题]#</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 熹* · 关键词 林七夜 · “大夏境内，神明禁行”#转场[话题]# #斩神[话题]# #林七夜[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">51,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">3</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a3e2cb6000000002101583c?xsec_token=ABKQFfnfmS6eqnrwVnpk7IRtz-HkgQj8XHrSporgHfaQ0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">萌物来袭！</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 斩***方 · 关键词 斩神2 · 可爱之后是另一个可爱😎#斩神动画第二季开播[话题]# #斩神动画[话题]# #斩神[话题]# #国漫[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">39,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">4</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/69eb63d90000000023015e31?xsec_token=AB59AvEsYxI-dZfyA22DbosRzqomW6OAplUvU-BwcOhz0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">&quot;各位观众，接下来登场的是......&quot;#转场[话题]# #斩神[话题]# #林七夜[话题]#</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 熹* · 关键词 林七夜 · &quot;各位观众，接下来登场的是......&quot;#转场[话题]# #斩神[话题]# #林七夜[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">35,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">5</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/69d8e24c000000002200253b?xsec_token=ABPquYzYOCRfXCgXA8m5zSH31bNT-LEByVnTXUYlMJ_dg=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">这一刀 会很帅</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 大* · 关键词 林七夜 · #林七夜[话题]# #斩神[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">24,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">6</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a17793400000000070285eb?xsec_token=ABFPCOR0habgR_W--BmBQhkZCSGrvLE-kAwB0tubvWiV0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">斩神动画第二季定档！</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 腾***频 · 关键词 斩神2 · #斩神动画[话题]# #斩神动画第二季[话题]# 定档！6月25日，林七夜和人类天花板们已集结沧南！新的故事等你见证！各位守夜人们，我们不见不散！#斩神[话题]</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">20,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">7</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a3d3da1000000000f0293fe?xsec_token=ABTdZRp12TcSjgNiJmnv3QYz8WmQGXKj1uaG1Dq5dFNcs=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">斩神2开播！派大星出来我真绷不住了！</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 吃***子 · 关键词 斩神2 · #斩神[话题]# #林七夜[话题]# #国漫[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">17,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">8</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a3d3da1000000000f0293fe?xsec_token=ABTdZRp12TcSjgNiJmnv3QYz8WmQGXKj1uaG1Dq5dFNcs=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">斩神2开播！派大星出来我真绷不住了！</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 吃***子 · 关键词 林七夜 · #斩神[话题]# #林七夜[话题]# #国漫[话题]#</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">17,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">9</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a3bf936000000001700abe4?xsec_token=ABWM8yA4dq-fDcBGsAwNTTknidx1f53LD4704IVhi4JPc=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">nova16见证守夜人封神时刻！</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 腾***频 · 关键词 斩神2 · #nova16见证守夜人封神时刻[话题]# #2亿红枫真出片[话题]# 虚空中藏匿破绽，取景框锁定真相。##nova16记录斩神2热血瞬间[话题]# 林七夜手持</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">15,000</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">10</div><div style="min-width:0;"><div style="font-size:13px;font-weight:500;line-height:1.4;margin-bottom:4px;"><a href="https://www.xiaohongshu.com/explore/6a3bf936000000001700abe4?xsec_token=ABWM8yA4dq-fDcBGsAwNTTknidx1f53LD4704IVhi4JPc=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;">nova16见证守夜人封神时刻！</a></div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">作者 腾***频 · 关键词 林七夜 · #nova16见证守夜人封神时刻[话题]# #2亿红枫真出片[话题]# 虚空中藏匿破绽，取景框锁定真相。##nova16记录斩神2热血瞬间[话题]# 林七夜手持</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">15,000</div><div>赞</div></div></div></div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:12px;">
+        观察: Top 10 帖几乎全是 <b>官方号(斩神动画官方)与剪辑向 UP 主的视频物料</b> —— 第一季主角"沈青竹/拽哥"、新登场"小蜘蛛/派大星"是绝对流量密码; 男主林七夜"夜神形态"的宣发视频占据两席。
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Top 10 点赞一级评论</h3>
+      <div class="card-tight"><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">1</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">林七夜含辛如苦治了一年才到一半多 这小孩一来直接飚70了[doge]</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@w***. · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3e2cb6000000002101583c?xsec_token=ABKQFfnfmS6eqnrwVnpk7IRtz-HkgQj8XHrSporgHfaQ0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">萌物来袭！</a> · 11 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">3,544</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">2</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">没有了神性，有了网红性[微笑R]</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@叮***u · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3cc3fa000000001702e75c?xsec_token=ABCxUBhFiT18z-jgap53Fi3_1h1C5GJA_Lzk-Xmu4WJa4=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">神漫你改啥不好改倪克斯的建模</a> · 10 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">2,348</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">3</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">是因为治疗进度上升了，灵魂得到修复，黑夜本人的能力越发纯净的原因吧</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@来***女 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3cc3fa000000001702e75c?xsec_token=ABCxUBhFiT18z-jgap53Fi3_1h1C5GJA_Lzk-Xmu4WJa4=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">神漫你改啥不好改倪克斯的建模</a> · 16 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">2,174</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">4</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">我靠，我真的求你了，这都能联动上。</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@冬***手 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3bf936000000001700abe4?xsec_token=ABWM8yA4dq-fDcBGsAwNTTknidx1f53LD4704IVhi4JPc=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">nova16见证守夜人封神时刻！</a> · 16 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,962</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">5</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">我靠，我真的求你了，这都能联动上。</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@冬***手 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3bf936000000001700abe4?xsec_token=ABWM8yA4dq-fDcBGsAwNTTknidx1f53LD4704IVhi4JPc=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">nova16见证守夜人封神时刻！</a> · 16 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,962</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">6</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">牛郎界一片天 谁见夜哥不递烟</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@🆔***炵 · 帖子: <a href="https://www.xiaohongshu.com/explore/69eb63d90000000023015e31?xsec_token=AB59AvEsYxI-dZfyA22DbosRzqomW6OAplUvU-BwcOhz0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">&quot;各位观众，接下来登场的是......&quot;#转场[话题]# #斩神[话题]# #林</a> · 48 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,836</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">7</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">像这种情况估计原建模师已经离开这个公司了[doge]</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@花***年 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3ca40f000000002003ba7a?xsec_token=ABCxUBhFiT18z-jgap53Fi3zk7ADyfVsjNX9dzmuK1YWg=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">俺不中了，斩神你在干嘛</a> · 21 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,684</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">8</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">他的年龄都能当你爸了</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@Y***分 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a3e2cb6000000002101583c?xsec_token=ABKQFfnfmS6eqnrwVnpk7IRtz-HkgQj8XHrSporgHfaQ0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">萌物来袭！</a> · 27 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,331</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">9</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">他是堕天使[飞吻R]最后主角团都被灭的差不多了 他硬是从地狱爬回来了 给马上崩溃的七夜一点希望 七夜爬在他肩膀上痛哭 拽哥永远桀骜不驯又最靠谱[派对R]</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@我***🍉 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a40b3990000000017028519?xsec_token=AB4My6NRkItMRJZuY4tis-P5zrOMhhmWf_U9wR43eWQy4=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">“正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# #国漫[话题]# #</a> · 13 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,176</div><div>赞</div></div></div><div style="padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:start;"><div style="font-size:14px;font-weight:500;color:var(--color-text-secondary);">10</div><div style="min-width:0;"><div style="font-size:13px;line-height:1.5;margin-bottom:4px;">这一季时长和集数都多些吧！</div><div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;">@你***呢 · 帖子: <a href="https://www.xiaohongshu.com/explore/6a17793400000000070285eb?xsec_token=ABFPCOR0habgR_W--BmBQhkZCSGrvLE-kAwB0tubvWiV0=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-info);text-decoration:none;">斩神动画第二季定档！</a> · 30 条回复</div></div><div style="text-align:right;font-size:12px;color:var(--color-text-secondary);white-space:nowrap;"><div style="font-size:14px;font-weight:500;color:var(--color-text-primary);">1,176</div><div>赞</div></div></div></div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:12px;">
+        观察: 高赞评论呈现<b>两个明显特征</b> —— 一是"角色实力对比 / 名场面梗"(如"派大星飙 70"、"没有神性有了网红性"), 二是"剧情推理与设定考据"(如"堕天使拽哥地狱归来"、"灵魂修复解释")。<b>负向情绪也进入前 10</b>: "没有神性,有了网红性" 2348 赞 —— 明确指向第二季"倪克斯建模换人"的争议。
+      </p>
+    </div>
+  </section>
+
+  <section id="s3">
+    <h2>3. 情感分布 · 打标与分布</h2>
+
+    <div class="note-info">
+      <b>打标方法:</b> 采用词典法(基于中文规则的情感词典)。<br>
+      · <b>正向 pos</b>: 命中"好看/绝了/牛/封神/催更/爱了/期待/满意/热血/燃/真香/还原度高"等词条数 &gt; 负向词条; 表示对内容持肯定态度。<br>
+      · <b>负向 neg</b>: 命中"难看/失望/拉胯/建模崩/魔改/毁原著/不如/离谱/无聊"等词条数 &gt; 正向词条; 表示批评或抱怨。<br>
+      · <b>中立 neu</b>: 无情感词或正负相抵; 多为客观陈述、剧情讨论、@好友。<br>
+      词典规模 40+ 正向、50+ 负向, 覆盖大部分口语表达。<b>局限性:</b> 对"反讽/欲扬先抑"识别不准, 但样本量足够大时误差会被稀释。
+    </div>
+
+    <div class="three-col">
+      <div class="card">
+        <h3>帖子情感分布</h3>
+        <div class="chart-box"><canvas id="ch_ps" role="img" aria-label="帖子情感">ps</canvas></div>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:8px;">
+          76 正向 / 6 中立 / 0 负向。<br>
+          帖子几乎全部正向 —— 博主发帖天然是"安利/宣发"心态。
+        </p>
+      </div>
+      <div class="card">
+        <h3>一级评论情感</h3>
+        <div class="chart-box"><canvas id="ch_l1" role="img" aria-label="一级评论情感">l1</canvas></div>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:8px;">
+          199 正向 / 534 中立 / 55 负向。<br>
+          正向 25.3%, 负向 7.0%。
+        </p>
+      </div>
+      <div class="card">
+        <h3>二级评论情感</h3>
+        <div class="chart-box"><canvas id="ch_l2" role="img" aria-label="二级评论情感">l2</canvas></div>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:8px;">
+          346 正向 / 1509 中立 / 88 负向。<br>
+          二级评论中立占比更高, 因多为"@好友/回复讨论"。
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>综合结论: 满意度 20.0% 正向 / 5.2% 负向</h3>
+      <p style="font-size:13px;color:var(--color-text-secondary);">
+        全部评论合计 <b>545 正向 · 2043 中立 · 143 负向</b>。正向比负向多约 <b>3.8 倍</b>, 用户整体口碑<b>正面偏温和</b>。中立比例高说明多数用户以"看剧讨论/剧情推理"为主, 不是情绪化表达。
+      </p>
+    </div>
+  </section>
+
+  <section id="s4">
+    <h2>4. 负面槽点归因 · 用户到底在骂什么</h2>
+
+    <p style="color:var(--color-text-secondary);">
+      对 <b>143 条负向评论</b>做二次分类, 用关键词命中方式归入 7 个槽点桶(一条评论可能命中多类)。分布如下:
+    </p>
+
+    <div class="card">
+      <div class="chart-box-tall"><canvas id="ch_neg" role="img" aria-label="负面槽点分布">neg</canvas></div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><h3 style="margin:0;">画风差</h3><span class="badge badge-neg">66 条 · 占负向 46.2%</span></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">这个建模我操 bl姐震惊了。！这是什么小说啊 啥类型</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">191 赞 · 帖子《“正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# 》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">倪克斯的建模改丑了</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">475 赞 · 帖子《萌物来袭！》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">好像说是倪克斯之前的建模师走了，所以换了人</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">42 赞 · 帖子《萌物来袭！》</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><h3 style="margin:0;">其他</h3><span class="badge badge-neg">52 条 · 占负向 36.4%</span></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">想入番，求劝退</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">5 赞 · 帖子《萌物来袭！》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">我不行了[黄金薯R]</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">9 赞 · 帖子《萌物来袭！》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">感觉很雷霆，又不雷霆，哎呀，我也不知道是什么感觉，就是好奇怪</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">2 赞 · 帖子《nova16见证守夜人封神时刻！》</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><h3 style="margin:0;">剧情差</h3><span class="badge badge-neg">15 条 · 占负向 10.5%</span></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">我知道啊，就怕动漫给它加剧情给假面来一刀[失望R][哭惹R]</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">9 赞 · 帖子《高能预警⚠️OP《爱谁谁》上线！🎶》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">逆水寒吧</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">1 赞 · 帖子《斩神Q版小剧场第一集新兵专访来啦》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">这不是AI，这是逆水寒</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">2 赞 · 帖子《斩神Q版小剧场第一集新兵专访来啦》</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><h3 style="margin:0;">主角塑造不好</h3><span class="badge badge-neg">13 条 · 占负向 9.1%</span></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">他是堕天使[飞吻R]最后主角团都被灭的差不多了 他硬是从地狱爬回来了 给马上崩溃的七夜一点希望 七夜爬在他肩膀上痛哭 拽哥永远桀骜不驯又最靠谱[派对R]</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">1176 赞 · 帖子《“正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# 》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">主角吗会死吗不会吧要不然不看了[偷笑R]</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">0 赞 · 帖子《“正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# 》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">只能按建模来了，挺符合我心中主角团的长相[笑哭R]</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">148 赞 · 帖子《斩神2开播！派大星出来我真绷不住了！》</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><h3 style="margin:0;">原著贴合度</h3><span class="badge badge-neg">11 条 · 占负向 7.7%</span></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">这个建模我操 bl姐震惊了。！这是什么小说啊 啥类型</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">191 赞 · 帖子《“正戴是对国家的尊敬，反戴是桀骜的本性”#斩神2[话题]# 》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">我嗅到了魔改的味道</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">34 赞 · 帖子《《斩神之凡尘神域2》全新预告！》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">拽哥的建模一定要好好弄啊[皱眉R]，这几次出的片段里感觉都没林七夜和安卿鱼这两位做得好，明明同为主角啊，一定要注重建模啊！还有拽哥是拽，他不是混混，不要做的那么老[汗颜R]！他孤儿院出生的再怎么弄建模应该都是属于清秀类型的吧！那时候大概也才</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">73 赞 · 帖子《斩神动画第二季最新预告！》</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;"><h3 style="margin:0;">不如第一季</h3><span class="badge badge-neg">11 条 · 占负向 7.7%</span></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">[哭惹R]时长长些好吗？...第一季慢死了</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">27 赞 · 帖子《斩神动画第二季定档！》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">斗篷我记得是因为建模不好搞就改了 第一季假面就是这样</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">1 赞 · 帖子《《斩神之凡尘神域2》全新预告！》</div></div><div style="padding:8px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px;"><div style="font-size:12px;line-height:1.5;color:var(--color-text-primary);">没事，人帅就行。唯一的希望就是人物建模别崩，音乐和第一季那样就行[doge]</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">2 赞 · 帖子《新PV上线，林七夜、安卿鱼联手燃战！🔥》</div></div></div>
+    </div>
+
+    <div class="card" style="background:var(--color-background-secondary);">
+      <h3>核心结论</h3>
+      <p style="margin:6px 0;">
+        <b>1. "画风差"(66 条, 占 46%)是绝对主槽点</b>, 且集中在 3D 建模上 —— 尤其新第二季"倪克斯"角色建模换人后被观众吐槽"没了神性, 有了网红性", 这句直接冲上评论 Top 2。这是国漫 3D 建模长期以来的痛点, 也是最难解决的技术问题。
+      </p>
+      <p style="margin:6px 0;">
+        <b>2. "其他"(52 条)</b>说明有约 36% 的负向评论没落到具体槽点桶里, 多是笼统吐槽"不好看/不看了/劝退"。真正结构化的槽点集中在画风(66) + 剧情(15) + 主角塑造(13) + 原著贴合(11) + 不如第一季(11)。
+      </p>
+      <p style="margin:6px 0;">
+        <b>3. "剧情"和"原著改编"是二级槽点</b> —— 观众普遍关心是否忠于原著漫画/小说, 对"魔改/加戏/新角色引入(小蜘蛛)"的态度分化。
+      </p>
+      <p style="margin:6px 0;">
+        <b>4. "不如第一季"(11 条)</b>说明第一季给观众埋下了很高的心理预期, 第二季只要有一点点掉队都会被拿来对比。这是番剧续作的普遍宿命。
+      </p>
+    </div>
+  </section>
+
+  <section id="s5">
+    <h2>5. 延伸洞察 · 三个值得一看的额外发现</h2>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>超好评帖 Top 5(帖子内正向评论占比最高)</h3>
+        <div class="card-tight"><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3d1a56000000002003b518?xsec_token=ABTdZRp12TcSjgNiJmnv3QY9nKlEgOizjnooXioloraoU=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">斩神2开播大吉！假面小队终于全员登场啦～</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">961 赞 · 11 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-success);white-space:nowrap;">54.5%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3b3c0f0000000011011105?xsec_token=ABWM8yA4dq-fDcBGsAwNTTki5o2EosqGDIuEHnfS-ibNI=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">林七夜携夜神形态回归，酷毙了#斩神动画[话题]##斩神动画第二季终极预告[话题]##国漫[话题]#</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">1,888 赞 · 15 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-success);white-space:nowrap;">46.7%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3ce84b0000000016025aaf?xsec_token=ABCxUBhFiT18z-jgap53Fi3y0d17X0X30m7RJpH7lGHcI=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">“谁家好人保底召唤出一个派大星”</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">3,164 赞 · 26 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-success);white-space:nowrap;">38.5%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/69428bcb000000001e029e9c?xsec_token=ABI0C5Wm0e32zUx2uEqbEvNWlo9Nnr1CT4Ic1sgseKoBc=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">林七夜展示神墟，这身高差看傻了</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">15,000 赞 · 43 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-success);white-space:nowrap;">37.2%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3d2de400000000160254a0?xsec_token=ABTdZRp12TcSjgNiJmnv3QY0wDvtt1UGRrPuVEw5v5IUc=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">斩神二你终于来了</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">1,622 赞 · 33 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-success);white-space:nowrap;">33.3%</div></div></div>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:10px;">
+          这些是<b>"点开评论区全是彩虹屁"的帖子</b>, 通常是官方开播物料、主角高燃剪辑。适合作为"核心粉丝浓度"参考。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>争议帖 Top 5(帖子内负向评论占比最高)</h3>
+        <div class="card-tight"><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3cc3fa000000001702e75c?xsec_token=ABCxUBhFiT18z-jgap53Fi3_1h1C5GJA_Lzk-Xmu4WJa4=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">神漫你改啥不好改倪克斯的建模</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">5,049 赞 · 54 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-danger);white-space:nowrap;">24.1%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3ca40f000000002003ba7a?xsec_token=ABCxUBhFiT18z-jgap53Fi3zk7ADyfVsjNX9dzmuK1YWg=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">俺不中了，斩神你在干嘛</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">1,297 赞 · 47 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-danger);white-space:nowrap;">23.4%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a3e6f3e0000000022018248?xsec_token=ABKQFfnfmS6eqnrwVnpk7IRhLd0vSlR6T9qtKrAJarfbk=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">斩神Q版小剧场第一集新兵专访来啦</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">9,459 赞 · 37 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-danger);white-space:nowrap;">21.6%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/6a38d64b000000001003fe82?xsec_token=ABVBdIPDIKizvIG446TVjZ-ywClt1acG45vLZ1u0zbPoo=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">高能预警⚠️OP《爱谁谁》上线！🎶</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">10,000 赞 · 48 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-danger);white-space:nowrap;">12.5%</div></div><div style="padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:12px;"><div style="min-width:0;flex:1;"><a href="https://www.xiaohongshu.com/explore/689855ea000000002501008d?xsec_token=ABfhLTZCSGRJm0jEIqNzw5h8dj5oeJ58iF0G8VugcvJds=&amp;xsec_source=pc_search" target="_blank" rel="noopener" style="color:var(--color-text-primary);text-decoration:none;font-size:13px;font-weight:500;">《斩神2》全新海报上线</a><div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">5,095 赞 · 40 条评论</div></div><div style="font-size:15px;font-weight:500;color:var(--color-text-danger);white-space:nowrap;">12.5%</div></div></div>
+        <p style="font-size:12px;color:var(--color-text-secondary);margin-top:10px;">
+          "神漫你改啥不好改倪克斯的建模"、"俺不中了斩神你在干嘛" —— 争议帖标题就是槽点本身。<b>把这些帖子加入监控, 就是最早发现口碑危机的雷达</b>。
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>视频 vs 图文 · 单帖平均表现对比</h3>
+      <div class="chart-box"><canvas id="ch_typecmp" role="img" aria-label="视频与图文对比">cmp</canvas></div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:10px;">
+        视频帖单帖平均 9,426 赞, 是图文的 <b>2.8 倍</b>。二次创作剪辑是番剧宣发的核心杠杆 —— 宣发预算优先投入视频物料创作者。
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>热门话题标签 Top 15 · 用户在如何标签这部剧</h3>
+      <div><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神 <span style="color:var(--color-text-tertiary);">45</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神动画 <span style="color:var(--color-text-tertiary);">38</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神动画第二季 <span style="color:var(--color-text-tertiary);">24</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">国漫 <span style="color:var(--color-text-tertiary);">19</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神2 <span style="color:var(--color-text-tertiary);">16</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">林七夜 <span style="color:var(--color-text-tertiary);">16</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神动画第二季开播 <span style="color:var(--color-text-tertiary);">14</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">沈青竹 <span style="color:var(--color-text-tertiary);">12</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神动画创作者激励计划 <span style="color:var(--color-text-tertiary);">12</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">动漫 <span style="color:var(--color-text-tertiary);">10</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神之凡尘神域 <span style="color:var(--color-text-tertiary);">9</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">我在夏天创斩神 <span style="color:var(--color-text-tertiary);">8</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">斩神第二季 <span style="color:var(--color-text-tertiary);">6</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">王面 <span style="color:var(--color-text-tertiary);">6</span></span><span style="display:inline-block;padding:4px 10px;margin:3px;background:var(--color-background-secondary);border-radius:20px;font-size:12px;">我在精神病院学斩神 <span style="color:var(--color-text-tertiary);">5</span></span></div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-top:12px;">
+        "斩神动画/斩神2/林七夜/国漫" 是绝对高频, "拽哥/沈青竹"说明第一季角色长尾流量仍在延续。<b>"斩神动画第二季开播/终极预告"</b>说明用户会主动使用"开播/预告"这样的时点标签 —— 验证了"6/25 前后是舆情爆发窗口"。
+      </p>
+    </div>
+
+    <div class="card" style="background:var(--color-background-info);">
+      <h3 style="color:var(--color-text-info);">给内容/运营团队的三条建议</h3>
+      <p style="margin:6px 0;color:var(--color-text-primary);"><b>① 建模是命门:</b> 3D 建模换人/降质是最容易被观众发现的品质滑坡, 且会在开播 3 天内爆发。第二季播出前建议做<b>观众可见的"建模优化过程"内容</b>(如美术团队 vlog)预防口碑塌方。</p>
+      <p style="margin:6px 0;color:var(--color-text-primary);"><b>② 高赞评论就是内容金矿:</b> "没有神性有了网红性"、"派大星飙 70"这样的高赞金句, 应被官方/剪辑向创作者做成二创物料, 反向反哺讨论热度。</p>
+      <p style="margin:6px 0;color:var(--color-text-primary);"><b>③ 争议帖评论区是最佳客服现场:</b> 官方账号应主动去争议帖(如"神漫你改啥不好改倪克斯的建模")的评论区互动 —— 承认问题比装看不见效果好 10 倍。</p>
+    </div>
+  </section>
+
+  <div style="margin-top:40px;padding:16px;text-align:center;font-size:12px;color:var(--color-text-tertiary);border-top:0.5px solid var(--color-border-tertiary);">
+    数据来源: 小红书公开搜索结果 · 分析引擎: MediaCrawler + 词典法情感分析 · 报告生成时间: 2026-07-01
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+Chart.defaults.font.family = "-apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = "#5F5E5A";
+
+new Chart(document.getElementById("ch_kw"), {
+  type: "bar",
+  data: { labels: ["斩神2", "林七夜"], datasets: [{ data: [60, 22], backgroundColor: "#378ADD" }] },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.05)" } }, x: { grid: { display: false } } }
+  }
+});
+
+new Chart(document.getElementById("ch_type"), {
+  type: "doughnut",
+  data: { labels: ["视频","图文"],
+    datasets: [{ data: [62, 20], backgroundColor: ["#378ADD","#F0997B"], borderWidth: 0 }] },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: "bottom" } } }
+});
+
+new Chart(document.getElementById("ch_date"), {
+  type: "bar",
+  data: { labels: ["2024-09-12", "2024-12-21", "2025-01-24", "2025-08-10", "2025-08-11", "2025-08-16", "2025-10-13", "2025-12-17", "2026-01-14", "2026-02-03", "2026-04-10", "2026-04-17", "2026-04-24", "2026-04-25", "2026-04-26", "2026-05-05", "2026-05-28", "2026-06-06", "2026-06-07", "2026-06-09", "2026-06-14", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-30"], datasets: [{ data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 4, 2, 1, 1, 1, 1, 2, 2, 1, 4, 3, 7, 25, 6, 2, 1, 1], backgroundColor: "#534AB7" }] },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.05)" } },
+      x: { grid: { display: false }, ticks: { maxRotation: 60, autoSkip: false, font: { size: 10 } } } }
+  }
+});
+
+function sentiChart(id, pos, neu, neg) {
+  new Chart(document.getElementById(id), {
+    type: "doughnut",
+    data: { labels: ["正向","中立","负向"],
+      datasets: [{ data: [pos, neu, neg], backgroundColor: ["#1D9E75","#B4B2A9","#E24B4A"], borderWidth: 0 }] },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom" } } }
+  });
+}
+sentiChart("ch_ps", 76, 6, 0);
+sentiChart("ch_l1", 199, 534, 55);
+sentiChart("ch_l2", 346, 1509, 88);
+
+new Chart(document.getElementById("ch_neg"), {
+  type: "bar",
+  data: { labels: ["画风差", "其他", "剧情差", "主角塑造不好", "原著贴合度", "不如第一季"], datasets: [{ data: [66, 52, 15, 13, 11, 11], backgroundColor: "#E24B4A" }] },
+  options: { indexAxis: "y", responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.x + " 条" } } } },
+    scales: { x: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.05)" } }, y: { grid: { display: false } } }
+  }
+});
+
+new Chart(document.getElementById("ch_typecmp"), {
+  type: "bar",
+  data: {
+    labels: ["平均点赞","平均收藏","平均评论","平均分享"],
+    datasets: [
+      { label: "视频", data: [9426,1783,224,531], backgroundColor: "#378ADD" },
+      { label: "图文", data: [3322,583,229,244], backgroundColor: "#F0997B" }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: "top" } },
+    scales: { y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.05)" } }, x: { grid: { display: false } } }
+  }
+});
+</script>
+</body>
+</html>
